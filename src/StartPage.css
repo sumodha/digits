@@ -1,0 +1,20 @@
+body{
+    background-color: #74659c;
+}
+h1{
+    text-align: center;
+    color: white;
+}
+button{
+    text-align: center;
+    border-radius: 5px;
+    font-family: Segoe UI;
+
+
+}
+div{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 200 px
+}

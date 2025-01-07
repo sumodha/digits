@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 function PlayButton(){
     const navigate = useNavigate();
     return (
-        <button onClick = {() => navigate('/home')}>
+        <button className = "startpage-button" onClick = {() => navigate('/home')}>
             play
         </button>
     );
@@ -12,7 +12,7 @@ function PlayButton(){
 
 function LogInButton(){
     return (
-        <button>
+        <button className = "startpage-button">
             log in
         </button>
     );
@@ -20,12 +20,15 @@ function LogInButton(){
 
 const StartPage = () => {
     return (
-        <div>
-            <h1>
+        <div id = "start-container">
+            <h1 >
                  digits
             </h1>
+            <p > a remake of new york times digits</p>
+            <div id = "buttons-container"> 
             <LogInButton> </LogInButton>
             <PlayButton> </PlayButton>
+            </div>
         </div>
 
     );

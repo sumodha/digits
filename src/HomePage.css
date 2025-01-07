@@ -1,0 +1,10 @@
+.numbers{
+    border-radius: 100%;
+    border-style: dashed;
+    border-width: 2px;
+    margin: 0px;
+    padding: 0px;
+    width: 100px;
+    height:100px;
+}
+

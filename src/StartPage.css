@@ -1,20 +1,37 @@
 body{
     background-color: #74659c;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
 }
 h1{
     text-align: center;
     color: white;
+    font-size: 60px;
 }
-button{
+p{
+    color: white;
     text-align: center;
-    border-radius: 5px;
-    font-family: Segoe UI;
-
-
+    font-style: italic;
 }
-div{
+.startpage-button{
+    text-align: center;
+    border-radius: 12px;
+    font-family: Segoe UI;
+    padding: 5px;
+    margin: 5px;
+    width: 110px;
+    background-color: white;
+}
+#buttons-container{
     display: flex;
     justify-content: center;
-    align-items: center;
-    height: 200 px
+}
+#start-container{
+    display: grid;
+}
+.startpage-button:hover{
+    cursor: pointer;
+    background-color: #dcd0ff;
 }

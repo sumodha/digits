@@ -1,5 +1,5 @@
 import "./HomePage.css";
-
+import {Helmet} from 'react-helmet-async';
 
 function NumberButton({num}){
     return (
@@ -12,20 +12,25 @@ function NumberButton({num}){
 
 const HomePage = () => {
     return (
-        <div>
-            <table>
-                <tr>
-                    <td> <NumberButton num = "1" > </NumberButton></td>
-                    <td> <NumberButton num = "2"> </NumberButton> </td>
-                    <td> <NumberButton num = "3"> </NumberButton> </td>
-                </tr>
-                <tr>
-                    <td> <NumberButton num = "4"> </NumberButton> </td>
-                    <td> <NumberButton num = "5"> </NumberButton> </td>
-                    <td> <NumberButton num = "6"> </NumberButton> </td>
-                </tr>
-            </table>
+        <>
+        <Helmet>
+            <title> digits </title>
+            <style>{`
+                body {
+                    background-color: white;
+                    display: flex;
+                    justify-content: left;
+                    align-items: left;
+                    height: 100vh;
+                }
+            `}</style> /* back ticks */
+        </Helmet>
+        <div id = "header-container">
+            <h1 id="home-header"> digits </h1>
+            <p id = "date"> tuesday, january 7 </p>
         </div>
+        
+        </>
     );
 }
 

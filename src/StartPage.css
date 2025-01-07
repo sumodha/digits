@@ -1,16 +1,10 @@
-body{
-    background-color: #74659c;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-}
-h1{
+
+#start-header{
     text-align: center;
     color: white;
     font-size: 60px;
 }
-p{
+#start-info{
     color: white;
     text-align: center;
     font-style: italic;
@@ -34,4 +28,8 @@ p{
 .startpage-button:hover{
     cursor: pointer;
     background-color: #dcd0ff;
+}
+.startpage-button:active{
+    cursor: pointer;
+    background-color: #c7bce8;
 }

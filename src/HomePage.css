@@ -8,3 +8,30 @@
     height:100px;
 }
 
+#header-container{
+    display: flex;
+    justify-content: left;
+    align-items: baseline;
+    height: 100px;
+    margin: 15px;
+}
+
+#date{
+    font-size: 20px;
+    color: #74659c;
+    text-align: left;
+    font-style: italic;
+    padding: 10px; 
+}
+
+#home-header{
+    text-align: left;
+    color: #74659c;
+    font-size: 60px;
+    margin-block-start: 0em;
+    margin-block-end: 0em;
+
+}
+hr{
+    color: #74659c;
+}

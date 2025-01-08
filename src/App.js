@@ -1,5 +1,5 @@
 import StartPage from './StartPage.js';
-import HomePage from './HomePage.js';
+import GamePage from './GamePage.js';
 import './App.css';
 import {  BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
@@ -9,7 +9,7 @@ const App = () => {
     <Router>
     <Routes>
       <Route path="/" element = {<StartPage></StartPage>}> </Route>
-      <Route path="/home" element = {<HomePage></HomePage>}> </Route>
+      <Route path="/game" element = {<GamePage></GamePage>}> </Route>
     </Routes>
     </Router>
   );

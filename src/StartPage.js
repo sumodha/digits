@@ -5,7 +5,7 @@ import {Helmet} from 'react-helmet-async';
 function PlayButton(){
     const navigate = useNavigate();
     return (
-        <button className = "startpage-button" onClick = {() => navigate('/home')}>
+        <button className = "startpage-button" onClick = {() => navigate('/game')}>
             play
         </button>
     );

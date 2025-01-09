@@ -46,7 +46,10 @@ const GamePage = () => {
             <TargetButton num = "5"> </TargetButton>
             <TargetButton num = "5"> </TargetButton>
             <TargetButton num = "5"> </TargetButton>
+            <TargetButton num = "7"> </TargetButton>
+            <TargetButton num = "7"> </TargetButton>
         </div>
+        <div id="page-container">
         <div id="game-container">
             <p id="instructions"> Use any combination of numbers to reach the target: </p>
             <h1 id = "target-number"> 56</h1>
@@ -67,8 +70,11 @@ const GamePage = () => {
             </div>
             <button id = "submit"> submit</button>
         </div>
+        <div id = "info-container"> 
         <div id = "history-container">
             <p id = "history"> Completed operations will appear here. </p>
+        </div>
+        </div>
         </div>
 
         

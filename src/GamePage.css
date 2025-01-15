@@ -8,14 +8,14 @@
     border-width: 3px;
     background-color: white;
     padding: 10px;
-    width: 90px;
-    height: 90px;
+    width: 85px;
+    height: 85px;
 }
 .numbers:hover{
     cursor: pointer;
     background-color: #dcd0ff;
 }
-.numbers:active{
+.numbers.active{
     cursor: pointer;
     background-color: #74659c;
     color: white;
@@ -38,7 +38,7 @@
     cursor: pointer;
     background-color: #74659c;
 }
-.operations:active{
+.operations.active{
     cursor: pointer;
     background-color: #74659c;
 }
@@ -59,7 +59,7 @@
     display: flex;
     justify-content: left;
     align-items: baseline;
-    height: 90px;
+    height: 80px;
     margin-top: 15px;
     margin-left: 15px;
 }
@@ -88,7 +88,7 @@
     color: rgb(135, 134, 134)
 }
 
-.targets:hover{ /*this is for when its not active...*/
+.targets.active{ /*this is for when its not active...*/
     background-color: white;
     color:black;
 }
@@ -102,7 +102,7 @@
     font-size: 15px;
     margin-block-start: 0px;
     margin-block-end: 0px;
-    margin-top: 13px;
+    margin-top: 15px;
 
 }
 #home-header{
@@ -110,6 +110,7 @@
     font-size: 60px;
     margin-block-start: 0px;
     margin-block-end: 0px;
+    line-height: 60px;
 
 }
 #target-number{
@@ -138,14 +139,14 @@
     color: white;
 }
 
-#history{
+.history{
     font-size: 15px;
-    text-align: center;
-    padding: 10px; 
+    text-align: left;
+    margin: 25px 0px 0px 25px; 
 }
 #number-container{
     display: grid;
-    grid-template-columns: repeat(3,90px);
+    grid-template-columns: repeat(3,85px);
     grid-gap: 5px;
     
 }
@@ -165,6 +166,17 @@
     align-items: center;
     margin-left: 15px;
     margin-right: 15px;
-    gap: 13px;
+    gap: 10px;
     min-width: 426px;
+}
+#history-container{
+    width: 400px;
+    height: 350px;
+    margin: 15px;
+    border-radius: 2%;
+    display: flex;
+    flex-direction: column;
+    border-style: solid;
+    border-width: 1px;
+    border-color: #c6c6c6;
 }

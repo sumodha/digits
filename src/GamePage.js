@@ -20,9 +20,10 @@ if operation is active, then yoiu can active two index
 const GamePage = () => {
     const [index, setIndex] = useState(0); // target index
     const [opIndex, setOpIndex] = useState(null); // operation index 
-    const [numbers, setNumbers] = useState(data[index].numbers);
-    const [numIndex, setNumIndex] = useState([]);
-    const [history, setHistory] = useState(["Completed operations will appear here."]);
+    const [numbers, setNumbers] = useState(data[index].numbers); // number buttons
+    const [numIndex, setNumIndex] = useState([]); // active number buttons
+    const [history, setHistory] = useState(["Completed operations will appear here."]); // history
+    const [active, setActive] = useState(false);
 
     function evaluate(num1, num2, op) {
         let result = eval(num1 + op + num2);
@@ -57,6 +58,15 @@ const GamePage = () => {
         }
 
     }}, [numIndex, numbers]);
+
+    useEffect(() => { if (numIndex.length == 1 && numbers[numIndex[0]] === data[index].target) {
+        setActive(true);
+    }
+    else {
+        setActive(false);
+    }
+
+    }, [numIndex])
 
     function handleTargetClick(e){
         setIndex(Number(e.target.id)); // switching the tab 
@@ -130,7 +140,7 @@ const GamePage = () => {
                 <button className = {opIndex == idx ? "operations active" : "operations"} id = {idx} key = {element} onClick = {handleOpClick} > {element}
                 </button>)}
             </div>
-            <button id = "submit"> submit</button>
+            <button className = {active? "submit active": "submit"} > submit</button>
         </div>
         <div id = "info-container"> 
         <div id = "history-container">

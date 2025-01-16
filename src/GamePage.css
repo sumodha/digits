@@ -121,7 +121,7 @@
     line-height: 60px;
 
 }
-#submit{
+.submit{
     width: 150px;
     height: 40px;
     background-color: rgb(216, 216, 216);
@@ -134,7 +134,7 @@
     
     
 }
-#submit:active{ /*this is for when play is within 25 of the correct answer...*/
+.submit.active{ /*this is for when play is within 25 of the correct answer...*/
     background-color: #74659c;
     color: white;
 }

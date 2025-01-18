@@ -4,12 +4,25 @@ import React, {useState, useEffect} from "react";
 
 
 
-const data =  [{target: 1, numbers: [1,2,3,4,5,6]}, 
-                {target: 2, numbers: [7,8,9,10,11,12]}, 
-                {target: 3, numbers: [13,14,15,16,17,18]}, 
-                {target: 4, numbers: [19,20,21,22,23,24]}, 
-                {target: 5, numbers: [25,26,27,28,29,30]}, ];
+const data =  [{target: 65, numbers: [1,6,7,9,20,22]}, 
+                {target: 168, numbers: [2,5,9,10,21,25]}, 
+                {target: 216, numbers: [1,2,4,7,14,23]}, 
+                {target: 367, numbers: [3,5,9,10,19,25]}, 
+                {target: 427, numbers: [2,3,5,15,17,21]}, ];
 const operations = ["+", "-", "*", "/"];
+const todaysdate = getDate();
+
+function getDate(){
+    const date = new Date();
+    let day = date.getDate();
+    let months = ["january", "february", "march", "april", "may", "june", "july", "august", "september", "october", "november", "december"];
+    let month = months[date.getMonth()];
+    let daysofweek = ["sunday", "monday", "tueday", "wednesday", "thursday", "friday", "saturday"];
+    let dayofweek = daysofweek[date.getDay()];
+
+    return dayofweek + ", " + month + " " + day;
+
+}
 
 /* okay numberbuttons
 you click it then if u click another button then it clicks that one active 
@@ -20,10 +33,11 @@ if operation is active, then yoiu can active two index
 const GamePage = () => {
     const [index, setIndex] = useState(0); // target index
     const [opIndex, setOpIndex] = useState(null); // operation index 
-    const [numbers, setNumbers] = useState(data[index].numbers); // number buttons
+    const [numbers, setNumbers] = useState(data[0].numbers); // number buttons
     const [numIndex, setNumIndex] = useState([]); // active number buttons
-    const [history, setHistory] = useState(["Completed operations will appear here."]); // history
-    const [active, setActive] = useState(false);
+    const [history, setHistory] = useState(["Your operations"]); // history
+    const [active, setActive] = useState(false); // submit button 
+
 
     function evaluate(num1, num2, op) {
         let result = eval(num1 + op + num2);
@@ -37,6 +51,7 @@ const GamePage = () => {
         
     }
 
+  
     useEffect(() => {if (numIndex.length == 2) {
         // once you click two number buttons, 
         // hide the first number button
@@ -73,7 +88,7 @@ const GamePage = () => {
         setOpIndex(null); // resetting operations; making none of them active
         setNumIndex([]); // resetting numbers; making none of them active
         setNumbers(data[Number(e.target.id)].numbers);
-        setHistory(["Completed operations will appear here."]);
+        setHistory(["Your operations"]);
     
     }
 
@@ -116,7 +131,7 @@ const GamePage = () => {
         </Helmet>
         <div id = "header-container">
             <h1 id="home-header"> digits </h1>
-            <p id = "date"> tuesday, january 7 </p>
+            <p id = "date"> {todaysdate}</p>
         </div>
         <div id="target-container">
             {data.map((element, idx) => 

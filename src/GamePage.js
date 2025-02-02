@@ -2,7 +2,7 @@ import "./GamePage.css";
 import {Helmet} from 'react-helmet-async';
 import React, {useState, useEffect} from "react";
 
-
+localStorage.clear();
 
 const data =  [{target: 65, numbers: [1,6,7,9,20,22]}, 
                 {target: 168, numbers: [2,5,9,10,21,25]}, 
@@ -17,7 +17,7 @@ function getDate(){
     let day = date.getDate();
     let months = ["january", "february", "march", "april", "may", "june", "july", "august", "september", "october", "november", "december"];
     let month = months[date.getMonth()];
-    let daysofweek = ["sunday", "monday", "tueday", "wednesday", "thursday", "friday", "saturday"];
+    let daysofweek = ["sunday", "monday", "tuesday", "wednesday", "thursday", "friday", "saturday"];
     let dayofweek = daysofweek[date.getDay()];
 
     return dayofweek + ", " + month + " " + day;
@@ -31,6 +31,7 @@ you have to be able to change arr
 if operation is active, then yoiu can active two index 
 */
 const GamePage = () => {
+    
     const [index, setIndex] = useState(0); // target index
     const [opIndex, setOpIndex] = useState(null); // operation index 
     const [numbers, setNumbers] = useState(data[0].numbers); // number buttons
@@ -83,14 +84,35 @@ const GamePage = () => {
 
     }, [numIndex])
 
+    const saveData = (ind, nums, hist ) => {
+        localStorage.setItem('tab-' + ind, JSON.stringify({ numbers, history }));
+    }
+
     function handleTargetClick(e){
-        setIndex(Number(e.target.id)); // switching the tab 
+
+        saveData(index, numbers, history);
+
+        const target_num = Number(e.target.id);
+        setIndex(target_num); // switching the tab 
         setOpIndex(null); // resetting operations; making none of them active
         setNumIndex([]); // resetting numbers; making none of them active
-        setNumbers(data[Number(e.target.id)].numbers);
-        setHistory(["Your operations"]);
+
     
     }
+
+    useEffect(() => {
+        const savedData = localStorage.getItem(`tab-${index}`);
+        if (savedData) {
+            const { numbers, history } = JSON.parse(savedData);
+            setNumbers(numbers);
+            setHistory(history);
+        }
+        else {
+            setNumbers(data[index].numbers);
+            setHistory(["Your operations"]); 
+        }
+
+    }, [index])
 
     function handleOpClick(e){
         if (e.target.className === "operations active") {

@@ -34,11 +34,11 @@ const GamePage = () => {
     
     const [index, setIndex] = useState(0); // target index
     const [opIndex, setOpIndex] = useState(null); // operation index 
-    const [numbers, setNumbers] = useState(data[0].numbers); // number buttons
+    const [numbers, setNumbers] = useState([data[index].numbers]); // number buttons
     const [numIndex, setNumIndex] = useState([]); // active number buttons
     const [history, setHistory] = useState(["Your operations"]); // history
     const [active, setActive] = useState(false); // submit button 
-
+    const [step, setStep] = useState(0);
 
     function evaluate(num1, num2, op) {
         let result = eval(num1 + op + num2);
@@ -57,8 +57,8 @@ const GamePage = () => {
         // once you click two number buttons, 
         // hide the first number button
         // evaluate the value
-        let num1 = String(numbers[numIndex[0]]);
-        let num2 = String(numbers[numIndex[1]]);
+        let num1 = String(numbers[step][numIndex[0]]);
+        let num2 = String(numbers[step][numIndex[1]]);
         let op = operations[opIndex];
         let result = evaluate(num1, num2, op); 
         if (result == -1) {
@@ -66,7 +66,9 @@ const GamePage = () => {
             setNumIndex([]);
         }
         else {
-            setNumbers(numbers.map((element, idx) => idx == numIndex[0] ? "X" : idx == numIndex[1] ? result: element));
+            let updated = numbers[step].map((element, idx) => idx == numIndex[0] ? "X" : idx == numIndex[1] ? result: element);
+            setNumbers(prev => [...prev, updated]);
+            setStep(prev => prev + 1);
             setHistory([...history, num1 + " " + op + " " + num2 +  " = " + String(result)]);
             setOpIndex(null);
             setNumIndex([]);
@@ -84,13 +86,14 @@ const GamePage = () => {
 
     }, [numIndex])
 
-    const saveData = (ind, nums, hist ) => {
-        localStorage.setItem('tab-' + ind, JSON.stringify({ numbers, history }));
+    const saveData = (ind, step, numbers, history ) => {
+        localStorage.setItem('tab-' + ind, JSON.stringify({ step, numbers, history }));
     }
 
     function handleTargetClick(e){
 
-        saveData(index, numbers, history);
+        console.log(numbers);
+        saveData(index, step, numbers, history);
 
         const target_num = Number(e.target.id);
         setIndex(target_num); // switching the tab 
@@ -102,14 +105,17 @@ const GamePage = () => {
 
     useEffect(() => {
         const savedData = localStorage.getItem(`tab-${index}`);
+        console.log(savedData);
         if (savedData) {
-            const { numbers, history } = JSON.parse(savedData);
+            const { step, numbers, history } = JSON.parse(savedData);
+            setStep(step);
             setNumbers(numbers);
             setHistory(history);
         }
         else {
-            setNumbers(data[index].numbers);
+            setNumbers([data[index].numbers]);
             setHistory(["Your operations"]); 
+            setStep(0);
         }
 
     }, [index])
@@ -119,6 +125,16 @@ const GamePage = () => {
             setOpIndex(null); // if it was active, then don't make it active anymore
         }
         else setOpIndex(Number(e.target.id)); // else, make this new one active
+    }
+
+    function handleBackClick(e){
+        if (step > 0) {
+            setStep(prev => prev - 1);
+            setNumIndex([]);
+            setOpIndex(null);
+            numbers.pop();
+            history.pop();
+        }
     }
 
 
@@ -166,13 +182,13 @@ const GamePage = () => {
             <p id="instructions"> Use any combination of numbers to reach the target: </p>
             <h1 id = "target-number"> {data[index].target}</h1>
             <div id= "number-container">
-            {numbers.map((element, idx) => 
+            {numbers[step].map((element, idx) => 
             <button className = {numIndex.indexOf(idx) != -1 ? "numbers active" : "numbers"} key = {idx} id = {idx} onClick = {handleNumberClick} style = {{visibility: element == "X" ? "hidden" : "visible"}} > {element}
             </button>
             )}
             </div>
             <div id="operations-container">
-            <button id = "back"> @ </button>
+            <button id = "back" onClick = {handleBackClick}> @ </button>
             {operations.map((element, idx) => 
                 <button className = {opIndex == idx ? "operations active" : "operations"} id = {idx} key = {element} onClick = {handleOpClick} > {element}
                 </button>)}

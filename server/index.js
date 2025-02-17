@@ -11,8 +11,13 @@ app.use(cors());
 
 connectDB();
 
+app.get('/', async (req, res) => {
+    const response = await itemModel.find();
+    return res.json({items: response});
+});
 
-app.listen(3000, () => {
+
+app.listen(3001, () => {
     console.log("app is running");
 }
 );

@@ -40,7 +40,14 @@ const GamePage = () => {
     const [active, setActive] = useState(false); // submit button 
     const [step, setStep] = useState(0);
 
-    
+    useEffect(() => {
+        const fetchData = async () => {
+            const res = await fetch('http://localhost:3001');
+            const data = await res.json();
+            console.log(data);
+        }
+        fetchData();
+    }, []);
 
     function evaluate(num1, num2, op) {
         let result = eval(num1 + op + num2);

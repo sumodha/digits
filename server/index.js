@@ -1,19 +1,25 @@
-// mongodb+srv://sumo:<db_password>@digits.ndytq.mongodb.net/?retryWrites=true&w=majority&appName=digits
-
-const express = require('express');
-const connectDB = require('./db.js');
-const itemModel = require('./models/item.js');
-const cors = require('cors');
+import express from 'express';
+import {connectDB, getCollection} from './db.js';
+import itemModel from './models/item.js';
+import cors from 'cors';
 
 const app = express();
 app.use(express.json());
 app.use(cors());
 
-connectDB();
+await connectDB();
+const collection = await getCollection();
 
 app.get('/', async (req, res) => {
-    const response = await itemModel.find();
+    const date = new Date();
+    let day = date.getDate();
+    let month = date.getMonth();
+    let dateQuery = month + "/" + day
+    const query = {"date": "6/12"}
+    const response = await collection.findOne(query);
+    console.log(response);
     return res.json({items: response});
+
 });
 
 

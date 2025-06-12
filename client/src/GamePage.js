@@ -4,11 +4,6 @@ import React, {useState, useEffect} from "react";
 
 localStorage.clear();
 
-const data =  [{target: 65, numbers: [1,6,7,9,20,22]}, 
-                {target: 168, numbers: [2,5,9,10,21,25]}, 
-                {target: 216, numbers: [1,2,4,7,14,23]}, 
-                {target: 367, numbers: [3,5,9,10,19,25]}, 
-                {target: 427, numbers: [2,3,5,15,17,21]}, ];
 const operations = ["+", "-", "*", "/"];
 const todaysdate = getDate();
 
@@ -34,6 +29,11 @@ const GamePage = () => {
     
     const [index, setIndex] = useState(0); // target index
     const [opIndex, setOpIndex] = useState(null); // operation index 
+    const [data, setData] = useState([{target: 0, numbers: [0,0,0,0,0,0]}, 
+                {target: 0, numbers: [0,0,0,0,0,0]}, 
+                {target: 0, numbers: [0,0,0,0,0,0]}, 
+                {target: 0, numbers: [0,0,0,0,0,0]}, 
+                {target: 0, numbers: [0,0,0,0,0,0]}, ])
     const [numbers, setNumbers] = useState([data[index].numbers]); // number buttons
     const [numIndex, setNumIndex] = useState([]); // active number buttons
     const [history, setHistory] = useState(["Your operations"]); // history
@@ -43,8 +43,10 @@ const GamePage = () => {
     useEffect(() => {
         const fetchData = async () => {
             const res = await fetch('http://localhost:3001');
-            const data = await res.json();
-            console.log(data);
+            const response = await res.json();
+            console.log(response)
+            setData(response.items.data)
+            console.log(response.items.data)
         }
         fetchData();
     }, []);
@@ -130,7 +132,7 @@ const GamePage = () => {
             setStep(0);
         }
 
-    }, [index])
+    }, [data,index])
 
     function handleOpClick(e){
         if (e.target.className === "operations active") {

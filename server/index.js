@@ -15,7 +15,7 @@ app.get('/', async (req, res) => {
     let day = date.getDate();
     let month = date.getMonth();
     let dateQuery = month + "/" + day
-    const query = {"date": "6/12"}
+    const query = {"date": "6/20"}
     const response = await collection.findOne(query);
     console.log(response);
     return res.json({items: response});

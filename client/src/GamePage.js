@@ -202,7 +202,7 @@ const GamePage = () => {
             )}
             </div>
             <div id="operations-container">
-            <button id = "back" onClick = {handleBackClick}> @ </button>
+            <button id = "back" onClick = {handleBackClick}> @</button>
             {operations.map((element, idx) => 
                 <button className = {opIndex == idx ? "operations active" : "operations"} id = {idx} key = {element} onClick = {handleOpClick} > {element}
                 </button>)}

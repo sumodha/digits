@@ -35,5 +35,3 @@ export async function connectDB() {
 export function getCollection() {
     return collection;
 }
-
-//module.exports = {connectDB, getCollection};

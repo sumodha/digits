@@ -1,7 +1,4 @@
 import { MongoClient, ServerApiVersion }  from "mongodb";
-// Load dotenv with import
-import dotenv from 'dotenv';
-dotenv.config();
 
 const uri = process.env.mongodbURI // your mongodb uri here...
 
@@ -19,7 +16,7 @@ const client = new MongoClient(uri,  {
 
 export async function connectDB() {
   try {
-    // Connect the client to the server (optional starting in v4.7)
+    // Connect the client to the server 
     await client.connect();
 
     // Send a ping to confirm a successful connection

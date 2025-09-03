@@ -7,9 +7,9 @@ const todaysdate = getDate();
 function getDate(){
     const date = new Date();
     let day = date.getDate();
-    let months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+    let months = ["january", "february", "march", "april", "may", "june", "july", "august", "september", "october", "november", "december"];
     let month = months[date.getMonth()];
-    let daysofweek = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+    let daysofweek = ["sunday", "monday", "tuesday", "wednesday", "thursday", "friday", "saturday"];
     let dayofweek = daysofweek[date.getDay()];
 
     return dayofweek + ", " + month + " " + day;

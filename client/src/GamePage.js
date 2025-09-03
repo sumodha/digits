@@ -4,6 +4,7 @@ import React, {useState, useEffect} from "react";
 
 localStorage.clear();
 
+const API = process.env.REACT_APP_API;
 const operations = ["+", "-", "*", "/"];
 const todaysdate = getDate();
 
@@ -42,7 +43,7 @@ const GamePage = () => {
 
     useEffect(() => {
         const fetchData = async () => {
-            const res = await fetch('http://localhost:3001');
+            const res = await fetch(`${API}/game`);
             const response = await res.json();
             console.log(response)
             setData(response.items.data)
@@ -202,7 +203,7 @@ const GamePage = () => {
             )}
             </div>
             <div id="operations-container">
-            <button id = "back" onClick = {handleBackClick}> @</button>
+            <button id = "back" onClick = {handleBackClick}> ⟲</button>
             {operations.map((element, idx) => 
                 <button className = {opIndex == idx ? "operations active" : "operations"} id = {idx} key = {element} onClick = {handleOpClick} > {element}
                 </button>)}

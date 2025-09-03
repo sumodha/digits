@@ -1,16 +1,18 @@
 import express from 'express';
 import {connectDB, getCollection} from './db.js';
-import itemModel from './models/item.js';
 import cors from 'cors';
+import corsOptions from './corsOptions.js';
+const PORT = process.env.PORT
+
 
 const app = express();
 app.use(express.json());
-app.use(cors());
+app.use(cors(corsOptions));
 
 await connectDB();
 const collection = await getCollection();
 
-app.get('/', async (req, res) => {
+app.get('/game', async (req, res) => {
     const date = new Date();
     let day = date.getDate();
     let month = date.getMonth() + 1;
@@ -24,7 +26,7 @@ app.get('/', async (req, res) => {
 });
 
 
-app.listen(3001, () => {
+app.listen(PORT, () => {
     console.log("app is running");
 }
 );

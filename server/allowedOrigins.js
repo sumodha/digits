@@ -1,6 +1,6 @@
 const allowedOrigins = [
-    process.env.frontend, 
-    process.env.backend
+    process.env.FRONTEND, 
+    process.env.BACKEND
 ]
 
 module.exports = allowedOrigins

@@ -1,6 +1,6 @@
 import { MongoClient, ServerApiVersion }  from "mongodb";
 
-const uri = process.env.mongodbURI // your mongodb uri here...
+const uri = process.env.MONGODB_URI // your mongodb uri here...
 
 let collection;
 // Create a MongoClient with a MongoClientOptions object to set the Stable API version

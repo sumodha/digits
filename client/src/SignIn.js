@@ -1,6 +1,8 @@
 import "./SignIn.css";
 import {Helmet} from 'react-helmet-async';
 import React, {useState, useEffect} from "react";
+import { Link } from 'react-router-dom';
+
 
 const SignIn = () => {
     const [username, setUsername] = useState("");
@@ -33,8 +35,8 @@ const SignIn = () => {
             <button type = "submit" id="submit">Sign In</button>
             
             </form>
-            <p> Don't have an account? <a href = "/signup">Sign Up</a></p>
-            <p><a href = "/play">Play</a> as guest</p>
+            <p> Don't have an account? <Link to = "/signup">Sign Up</Link></p>
+            <p><Link to = "/play">Play</Link> as guest</p>
 
         </div>
 

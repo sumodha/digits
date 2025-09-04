@@ -4,10 +4,12 @@ import SignIn from './SignIn.js';
 import SignUp from './SignUp.js';
 import './App.css';
 import {  BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { UsernameProvider } from './UsernameContext.js';
 
 
 const App = () => {
   return (
+    <UsernameProvider>
     <Router>
     <Routes>
       <Route path="/" element = {<StartPage></StartPage>}> </Route>
@@ -15,8 +17,8 @@ const App = () => {
       <Route path="/signin" element = {<SignIn></SignIn>}> </Route>
       <Route path="/signup" element = {<SignUp></SignUp>}> </Route>
     </Routes>
-    
     </Router>
+    </UsernameProvider>
   );
 }
 

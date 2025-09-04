@@ -1,6 +1,8 @@
 import "./GamePage.css";
 import {Helmet} from 'react-helmet-async';
 import React, {useState, useEffect} from "react";
+import user from ".//images/profile.png";
+import { useUsername } from "./UsernameContext";
 
 localStorage.clear();
 
@@ -167,6 +169,7 @@ const GamePage = () => {
             else setNumIndex(prev => [...prev, Number(e.target.id)]); // else, make this new one active     
         }
     }
+    const { username } = useUsername();
 
     return (
         <>
@@ -183,8 +186,14 @@ const GamePage = () => {
             `}</style> 
         </Helmet>
         <div id = "header-container">
+            <div id = "left-side">
             <h1 id="home-header"> digits </h1>
             <p id = "date"> {todaysdate}</p>
+            </div>
+            <div id = "right-side">
+                <p id = "username">{username}</p>
+                <img id = "profile" src = {user}></img>
+            </div>
         </div>
         <div id="target-container">
             {data.map((element, idx) => 

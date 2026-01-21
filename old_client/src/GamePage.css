@@ -1,0 +1,200 @@
+.numbers{
+    border-radius: 100%;
+    border-style: dashed;
+    color: black;
+    font-size: 25px;
+    font-family: 'Segoe UI';
+    font-weight: bold;
+    border-width: 3px;
+    background-color: white;
+    padding: 10px;
+    width: 85px;
+    height: 85px;
+}
+.numbers:hover{
+    cursor: pointer;
+    background-color: #dcd0ff;
+}
+.numbers.active{
+    cursor: pointer;
+    background-color: #74659c;
+    color: white;
+    border-width: 0px;
+}
+
+.operations{
+    width: 50px;
+    height: 50px;
+    color: white;
+    font-family: 'Segoe UI';
+    font-weight: bold;
+    background-color: black;
+    border-radius: 100%;
+    margin: 3px;
+    padding:0px;
+    font-size: 30px;
+    border-width: 0px;
+}
+.operations:hover{
+    cursor: pointer;
+    background-color: #74659c;
+}
+.operations.active{
+    cursor: pointer;
+    background-color: #74659c;
+}
+#back{
+    width: 50px;
+    height: 50px;
+    color: white;
+    font-family: 'Segoe UI';
+    font-weight: bold;
+    background-color: #74659c;
+    border-radius: 100%;
+    margin: 3px;
+    font-size: 25px;
+    border-width: 0px;
+}
+
+#header-container{
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    height: 80px;
+    margin-top: 15px;
+    margin-left: 15px;
+    margin-right: 15px;
+}
+
+#left-side{
+    display: flex;
+    align-items: baseline;
+}
+#right-side{
+    display: flex;
+    align-items: center;
+}
+
+
+#target-container{
+    display: flex;
+    justify-content: left;
+    margin-left: 15px;
+    border-width: 0px 0px 0px 1px;
+    border-color: #c6c6c6;
+    border-style: solid;
+
+
+}
+.targets{
+    font-size: 20px;
+    text-align: center;
+    font-family: 'Segoe UI';
+    border-style: solid;
+    border-width: 1px 1px 0px 0px;
+    border-color: #c6c6c6;
+    font-weight: bold;
+    padding: 5px;
+    width: 80px;
+    background-color: rgb(239, 239, 239);
+    color: rgb(135, 134, 134)
+}
+
+.targets.active{ /*this is for when its not active...*/
+    background-color: white;
+    color:black;
+}
+#date{
+    font-size: 20px;
+    color: #74659c;
+    font-style: italic;
+    padding: 10px; 
+}
+#username{
+    font-size: 20px;
+    color: #74659c;
+    font-style: normal;
+    padding: 10px; 
+}
+#instructions{
+    font-size: 15px;
+    margin-block-start: 0px;
+    margin-block-end: 0px;
+    margin-top: 15px;
+
+}
+#home-header{
+    color: #74659c;
+    font-size: 60px;
+    margin-block-start: 0px;
+    margin-block-end: 0px;
+    line-height: 60px;
+
+}
+#target-number{
+    color: #74659c;
+    font-size: 60px;
+    margin-block-start: 0px;
+    margin-block-end: 0px;
+    line-height: 60px;
+
+}
+.submit{
+    width: 150px;
+    height: 40px;
+    background-color: rgb(216, 216, 216);
+    color: rgb(135, 134, 134);
+    border-width: 0px;
+    font-size: 20px;
+    font-family: 'Segoe UI';
+    font-weight: bold;
+    border-radius:10%;
+    
+    
+}
+.submit.active{ /*this is for when play is within 25 of the correct answer...*/
+    background-color: #74659c;
+    color: white;
+}
+
+.history{
+    font-size: 15px;
+    text-align: left;
+    margin: 25px 0px 0px 25px; 
+}
+#number-container{
+    display: grid;
+    grid-template-columns: repeat(3,85px);
+    grid-gap: 5px;
+    
+}
+#page-container{
+    width: 100vw;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    border-style: solid;
+    border-width: 1px 0px 0px 0px;
+    border-color: #c6c6c6;
+
+}
+#game-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-left: 15px;
+    margin-right: 15px;
+    gap: 10px;
+    min-width: 426px;
+}
+#history-container{
+    width: 400px;
+    height: 350px;
+    margin: 15px;
+    border-radius: 2%;
+    display: flex;
+    flex-direction: column;
+    border-style: solid;
+    border-width: 1px;
+    border-color: #c6c6c6;
+}

@@ -51,7 +51,7 @@ function GamePage(){
     const [active, setActive] = useState<boolean>(false); // submit button 
     const [step, setStep] = useState<number>(0);
 
-    /*
+    
     useEffect(() => {
         const fetchData = async () => {
             const res = await fetch(`${API}/game`);
@@ -61,7 +61,7 @@ function GamePage(){
             console.log(response.items.data)
         }
         fetchData();
-    }, []);*/
+    }, []);
 
   
 
@@ -241,7 +241,7 @@ function GamePage(){
         </div>
         <div id = "info-container"> 
         <div id = "history-container">
-            {history.map((element, idx) => 
+            {history.map((element) => 
             <p className = "history"> {element} </p>
             ) }
         </div>

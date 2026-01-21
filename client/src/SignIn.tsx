@@ -9,7 +9,11 @@ const SignIn = () => {
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
+
+        
     }
+
+  
 
     useEffect(() => {
         document.body.style.backgroundColor = "#74659c";
@@ -26,8 +30,8 @@ const SignIn = () => {
             <h1 className="title"> Welcome back</h1>
             <h2 className = "sub-title"> Sign In to Your Account</h2>
             <form onSubmit = {handleSubmit}>
-            <input type="text" name="username" placeholder="Username" onChange = {(e) => setUsername(e.target.value)} required/>
-            <input type="password" name="password" placeholder="Password" onChange = {(e) => setPassword(e.target.value)} required/>
+            <input type="text" name="username" value={username}placeholder="Username" onChange = {(e) => setUsername(e.target.value)} required/>
+            <input type="password" name="password" value={password}placeholder="Password" onChange = {(e) => setPassword(e.target.value)} required/>
             <button type = "submit" id="submit">Sign In</button>
             
             </form>

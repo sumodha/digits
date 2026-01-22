@@ -198,3 +198,8 @@
     border-width: 1px;
     border-color: #c6c6c6;
 }
+button{
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+}

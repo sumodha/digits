@@ -1,12 +1,13 @@
 import "./GamePage.css";
 import {useState, useEffect} from "react";
-import user from "./assets/profile.png";
+import user from "./assets/profile.svg";
 
 localStorage.clear();
 
 const API = import.meta.env.VITE_API as string;
-const operations = ["+", "-", "*", "/"];
+const operations = ["+", "−", "×", "÷"];
 const todaysdate = getDate();
+
 
 function getDate(): string{
     const date = new Date();
@@ -20,12 +21,6 @@ function getDate(): string{
 
 }
 
-/* okay numberbuttons
-you click it then if u click another button then it clicks that one active 
-if u click out then no active buttons 
-you have to be able to change arr 
-if operation is active, then yoiu can active two index 
-*/
 
 type GameData = {
   target: number;
@@ -38,20 +33,31 @@ type NumberCell = number | "X";
 
 function GamePage(){
     
-    const [index, setIndex] = useState<number>(0); // target index
+    const [index, setIndex] = useState<number>(0); // panel index 
     const [opIndex, setOpIndex] = useState<number | null>(null); // operation index 
     const [data, setData] = useState<GameData[]>([{target: 0, numbers: [0,0,0,0,0,0]}, 
                 {target: 0, numbers: [0,0,0,0,0,0]}, 
                 {target: 0, numbers: [0,0,0,0,0,0]}, 
                 {target: 0, numbers: [0,0,0,0,0,0]}, 
-                {target: 0, numbers: [0,0,0,0,0,0]}, ])
-    const [numbers, setNumbers] = useState<NumberCell[][]>([data[index].numbers]); // number buttons
-    const [numIndex, setNumIndex] = useState<number[]>([]); // active number buttons
+                {target: 0, numbers: [0,0,0,0,0,0]}, ]); // data
+    const [numbers, setNumbers] = useState<NumberCell[][]>([data[index].numbers]); // history of number buttons
+    const [numIndex, setNumIndex] = useState<number[]>([]); // number buttons that are active 
     const [history, setHistory] = useState<string[]>(["Your operations"]); // history
     const [active, setActive] = useState<boolean>(false); // submit button 
-    const [step, setStep] = useState<number>(0);
+    const [step, setStep] = useState<number>(0); // step number 
 
-    
+
+    // USE EFFECT
+    useEffect(() => {
+    document.body.style.backgroundColor = "white";
+    document.body.style.display = "flex";
+    document.body.style.justifyContent = "left";
+    document.body.style.alignItems = "left";
+    document.body.style.height = "100vh";
+        }, []);
+
+
+    // Gets today's game from backend
     useEffect(() => {
         const fetchData = async () => {
             const res = await fetch(`${API}/game`);
@@ -63,40 +69,29 @@ function GamePage(){
         fetchData();
     }, []);
 
-  
 
-    function evaluate(num1: string, num2: string, op : string): number{
-        let result = eval(num1 + op + num2);
-
-        // if the result is negative or it is a decimal, 
-        // then return -1 instead of the result
-        if (result < 0 || !Number.isInteger(result)) {
-            return -1;
-        }
-        else return result;
-        
-    }
-
-    
-
-  
+    // Once you click two number buttons, 
+    // Hide the first number button
+    // & Evaluate the value 
     useEffect(() => {if (numIndex.length == 2) {
-        // once you click two number buttons, 
-        // hide the first number button
-        // evaluate the value
-        let num1 = String(numbers[step][numIndex[0]]);
-        let num2 = String(numbers[step][numIndex[1]]);
+        const num1 = numbers[step][numIndex[0]];
+        const num2 = numbers[step][numIndex[1]];
+        
         if (opIndex == null) {
             return;
         }
-        let op = operations[opIndex];
-        let result = evaluate(num1, num2, op); 
-        if (result == -1) {
-            setOpIndex(null);
-            setNumIndex([]);
+
+        const ops = ["+", "-", "*", "/"];
+        const op = ops[opIndex];
+        
+        const result = evaluate(num1 as number, num2 as number, op); 
+
+        if (result == null) { // if evaluation results in a decimal
+            setOpIndex(null); // make no operations active 
+            setNumIndex([]); // make no number buttons active 
         }
         else {
-            let updated = numbers[step].map((element, idx) => idx == numIndex[0] ? "X" : idx == numIndex[1] ? result: element);
+            const updated = numbers[step].map((element, idx) => idx == numIndex[0] ? "X" : idx == numIndex[1] ? result: element);
             setNumbers(prev => [...prev, updated]);
             setStep(prev => prev + 1);
             setHistory([...history, num1 + " " + op + " " + num2 +  " = " + String(result)]);
@@ -107,36 +102,39 @@ function GamePage(){
 
     }}, [numIndex, numbers]);
 
-    useEffect(() => { if (numIndex.length == 1 && numbers[step][numIndex[0]] === data[index].target) {
-        setActive(true);
-    }
-    else {
-        console.log(numIndex);
+
+    // makes submit active or not based on if you have reached the target number...
+    useEffect(() => { 
+        
+        for (let i = 0; i < 6; i++) {
+
+            if ( numbers[step][i] == data[index].target) {
+                setActive(true);
+                return;
+            }
+            
+        }
         setActive(false);
-    }
+        
+        
+        
+        /*
+        if (numIndex.length == 1 && numbers[step][numIndex[0]] === data[index].target) {
+        setActive(true);
+        }
+        else {
+        setActive(false);
+        }
+        */
 
-    }, [numIndex])
+    }, [numIndex]);
 
-    const saveData = (ind: number, step: number, numbers: NumberCell[][], history: string[] ) => {
-        localStorage.setItem('tab-' + ind, JSON.stringify({ step, numbers, history }));
-    }
 
-    function handleTargetClick(e : React.MouseEvent<HTMLButtonElement>){
-
-        console.log(numbers);
-        saveData(index, step, numbers, history);
-
-        const target_num = Number(e.currentTarget.id);
-        setIndex(target_num); // switching the tab 
-        setOpIndex(null); // resetting operations; making none of them active
-        setNumIndex([]); // resetting numbers; making none of them active
-
-    
-    }
-
+    // When the index changes, we look at local storage 
+    // If it is in local storage, we get it
+    // If not, we reset
     useEffect(() => {
         const savedData = localStorage.getItem(`tab-${index}`);
-        console.log(savedData);
         if (savedData) {
             const { step, numbers, history } = JSON.parse(savedData);
             setStep(step);
@@ -149,8 +147,51 @@ function GamePage(){
             setStep(0);
         }
 
-    }, [data,index])
+    }, [data,index]);
 
+
+    // evaluates expression
+    function evaluate(num1: number, num2: number, op : string): number | null{
+        
+
+        switch (op) {
+            case "+":
+                return num1 + num2;
+            case "-":
+                return num1 - num2;
+            case "*":
+                return num1 * num2;
+            case "/":
+                const result = num1 / num2;
+                if (!Number.isInteger(result)) {
+                    return null;
+                }
+                return result;
+        };
+        
+        return null;
+        
+    }
+
+
+    // saves data 
+    function saveData (ind: number, step: number, numbers: NumberCell[][], history: string[] ) {
+        localStorage.setItem('tab-' + ind, JSON.stringify({ step, numbers, history }));
+    }
+
+    // HANDLING CLICKS...
+    function handleTargetClick(e : React.MouseEvent<HTMLButtonElement>){
+
+        saveData(index, step, numbers, history);
+
+        const target_num = Number(e.currentTarget.id);
+        setIndex(target_num); // switching the tab 
+        setOpIndex(null); // resetting operations; making none of them active
+        setNumIndex([]); // resetting numbers; making none of them active
+
+    
+    }
+    
     function handleOpClick(e: React.MouseEvent<HTMLButtonElement>){
         if (e.currentTarget.className === "operations active") {
             setOpIndex(null); // if it was active, then don't make it active anymore
@@ -194,15 +235,6 @@ function GamePage(){
         }
     }
 
-
-    useEffect(() => {
-    document.body.style.backgroundColor = "white";
-    document.body.style.display = "flex";
-    document.body.style.justifyContent = "left";
-    document.body.style.alignItems = "left";
-    document.body.style.height = "100vh";
-        }, []);
-
     return (
         <>
         <div id = "header-container">
@@ -234,7 +266,7 @@ function GamePage(){
             <div id="operations-container">
             <button id = "back" onClick = {handleBackClick}> ⟲</button>
             {operations.map((element, idx) => 
-                <button className = {opIndex == idx ? "operations active" : "operations"} id = {String(idx)} key = {element} onClick = {handleOpClick} > {element}
+                <button className = {opIndex == idx ? "operations active" : "operations"} id = {String(idx)} key = {String(idx)} onClick = {handleOpClick} > {element}
                 </button>)}
             </div>
             <button className = {active? "submit active": "submit"} > submit</button>

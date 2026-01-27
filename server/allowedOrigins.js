@@ -1,6 +1,7 @@
 const allowedOrigins = [
     process.env.FRONTEND, 
-    process.env.BACKEND
+    process.env.BACKEND,
+    "https://sumodha-digits.onrender.com/"
 ]
 
 export default allowedOrigins;

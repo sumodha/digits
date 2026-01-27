@@ -1,5 +1,9 @@
 import { MongoClient, ServerApiVersion }  from "mongodb";
 
+import dotenv from "dotenv";
+dotenv.config();
+
+
 const uri = process.env.MONGODB_URI // your mongodb uri here...
 
 let collection;

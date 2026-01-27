@@ -1,7 +1,7 @@
 import express from 'express';
 import {connectDB} from './db.js';
 import cors from 'cors';
-import corsOptions from './corsOptions.js';
+import {corsOptions} from './corsOptions.js';
 const PORT = process.env.PORT
 
 

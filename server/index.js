@@ -1,5 +1,5 @@
 import express from 'express';
-import {connectDB, getCollection} from './db.js';
+import {connectDB} from './db.js';
 import cors from 'cors';
 import corsOptions from './corsOptions.js';
 const PORT = process.env.PORT
@@ -9,7 +9,7 @@ const app = express();
 app.use(express.json());
 app.use(cors(corsOptions));
 
-await connectDB();
+
 const collection = await getCollection();
 
 app.get('/game', async (req, res) => {

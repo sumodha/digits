@@ -6,7 +6,6 @@ dotenv.config();
 
 const uri = process.env.MONGODB_URI // your mongodb uri here...
 
-let collection;
 // Create a MongoClient with a MongoClientOptions object to set the Stable API version
 const client = new MongoClient(uri,  {
         serverApi: {
@@ -21,18 +20,13 @@ const client = new MongoClient(uri,  {
 export async function connectDB() {
   try {
     // Connect the client to the server 
-    await client.connect();
+    let result = await client.connect();
+    let db = result.db("digits");
+    console.log("Succesfully connected");
+    return db.collection("targets");
 
-    // Send a ping to confirm a successful connection
-    await client.db("admin").command({ ping: 1 });
-    console.log("Pinged your deployment. You successfully connected to MongoDB!");
-
-    collection = await client.db("digits").collection("targets");
   } catch {
-    console.log("Server 404 Error");
+    console.error("MongoDB connection failed:", err);
   }
 }
 
-export function getCollection() {
-    return collection;
-}

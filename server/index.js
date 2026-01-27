@@ -1,5 +1,5 @@
 import express from 'express';
-import {connectDB} from './db.js';
+import connectDB from './db.js';
 import cors from 'cors';
 import corsOptions from './corsOptions.js';
 const PORT = process.env.PORT
@@ -10,7 +10,7 @@ app.use(express.json());
 app.use(cors(corsOptions));
 
 
-const collection = await getCollection();
+const collection = await connectDB();
 
 app.get('/game', async (req, res) => {
     const date = new Date();

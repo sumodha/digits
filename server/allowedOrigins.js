@@ -3,4 +3,4 @@ const allowedOrigins = [
     process.env.BACKEND
 ]
 
-module.exports = allowedOrigins
+export default allowedOrigins;

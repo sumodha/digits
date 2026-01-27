@@ -73,6 +73,10 @@
 #right-side{
     display: flex;
     align-items: center;
+    transition: transform 0.2s ease; /* smooth animation */
+}
+#right-side:hover {
+    transform: scale(1.1); /* grow 10% */
 }
 
 
@@ -148,13 +152,19 @@
     font-size: 20px;
     font-family: 'Segoe UI';
     font-weight: bold;
-    border-radius:10%;
+    border-radius:10px;
+    cursor: default;
     
     
 }
 .submit.active{ /*this is for when play is within 25 of the correct answer...*/
     background-color: #74659c;
+    cursor: pointer;
     color: white;
+    transition: transform 0.2s ease; /* smooth animation */
+}
+.submit.active:hover{
+    transform: scale(1.1); /* grow 10% */
 }
 
 .history{
@@ -187,6 +197,11 @@
     gap: 10px;
     min-width: 426px;
 }
+#info-container {
+    display:flex;
+    flex-direction: column;
+
+}
 #history-container{
     width: 400px;
     height: 350px;
@@ -202,4 +217,7 @@ button{
     text-align: center;
     justify-content: center;
     align-items: center;
+}
+h2{
+    color: #74659c;
 }

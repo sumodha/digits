@@ -1,0 +1,69 @@
+#Popup-overlay{
+position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0,0,0,0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+
+}
+#Popup-container{
+    background-color: white;
+    width: 250px;
+    height: 450px;
+    border-radius: 30px;
+    padding: 20px;
+    box-shadow: 0 0 20px rgba(0,0,0,0.2);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+
+
+.next-puzzle-button{
+    width: 175px;
+    height: 40px;
+    background-color: black;
+    color: white;
+    border-width: 0px;
+    font-size: 20px;
+    font-family: 'Segoe UI';
+    font-weight: bold;
+    border-radius:10px;
+    cursor: pointer;
+    transition: transform 0.2s ease; /* smooth animation */
+    
+    
+}
+
+    
+.next-puzzle-button:hover{
+    transform: scale(1.1); /* grow 10% */
+}
+
+
+.back-puzzle-button{
+    width: 175px;
+    height: 40px;
+    background-color: white;
+    color: black;
+    font-size: 20px;
+    border: 2px solid black;
+    font-family: 'Segoe UI';
+    font-weight: bold;
+    border-radius:10px;
+    cursor: pointer;
+    transition: transform 0.2s ease; /* smooth animation */
+    
+    
+}
+
+.back-puzzle-button:hover{
+    transform: scale(1.1); /* grow 10% */
+}

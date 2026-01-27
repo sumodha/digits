@@ -1,6 +1,7 @@
 import "./GamePage.css";
 import {useState, useEffect} from "react";
 import user from "./assets/profile.svg";
+import Popup from './Popup.js';
 
 localStorage.clear();
 
@@ -36,7 +37,7 @@ function GamePage(){
     const [index, setIndex] = useState<number>(0); // panel index 
     const [opIndex, setOpIndex] = useState<number | null>(null); // operation index 
     const [data, setData] = useState<GameData[]>([{target: 0, numbers: [0,0,0,0,0,0]}, 
-                {target: 0, numbers: [0,0,0,0,0,0]}, 
+                {target:0, numbers: [0,0,0,0,0,0]}, 
                 {target: 0, numbers: [0,0,0,0,0,0]}, 
                 {target: 0, numbers: [0,0,0,0,0,0]}, 
                 {target: 0, numbers: [0,0,0,0,0,0]}, ]); // data
@@ -44,7 +45,9 @@ function GamePage(){
     const [numIndex, setNumIndex] = useState<number[]>([]); // number buttons that are active 
     const [history, setHistory] = useState<string[]>(["Your operations"]); // history
     const [active, setActive] = useState<boolean>(false); // submit button 
+    const [submit, setSubmit] = useState<string>("submit");
     const [step, setStep] = useState<number>(0); // step number 
+    const [openPopup, setOpenPopup] = useState(false);
 
 
     // USE EFFECT
@@ -103,29 +106,31 @@ function GamePage(){
     }}, [numIndex, numbers]);
 
 
-    // makes submit active or not based on if you have reached the target number...
+
+    // makes submit button active if within 6 of it 
     useEffect(() => { 
         
-        for (let i = 0; i < 6; i++) {
-
-            if ( numbers[step][i] == data[index].target) {
-                setActive(true);
-                return;
-            }
-            
+        if (numIndex.length != 1) {
+            return;
         }
-        setActive(false);
-        
-        
-        
-        /*
-        if (numIndex.length == 1 && numbers[step][numIndex[0]] === data[index].target) {
-        setActive(true);
+        const diff = Math.abs(numbers[step][numIndex[0]] as number - data[index].target);
+        if (diff == 0) {
+            setActive(true);
+            setSubmit("submit ☆☆☆");
+        }
+        else if (diff <= 3) {
+            setActive(true);
+            setSubmit("submit ☆☆");
+        }
+        else if (diff <=6) {
+            setActive(true);
+            setSubmit("submit ☆");
         }
         else {
-        setActive(false);
+            setSubmit("submit");
+            setActive(false);
         }
-        */
+        
 
     }, [numIndex]);
 
@@ -140,12 +145,18 @@ function GamePage(){
             setStep(step);
             setNumbers(numbers);
             setHistory(history);
+        
         }
         else {
             setNumbers([data[index].numbers]);
             setHistory(["Your operations"]); 
             setStep(0);
         }
+
+        setSubmit("submit");
+        setOpenPopup(false);
+        setActive(false);
+        setNumIndex([]);
 
     }, [data,index]);
 
@@ -204,6 +215,8 @@ function GamePage(){
             setStep(prev => prev - 1);
             setNumIndex([]);
             setOpIndex(null);
+            setSubmit("submit");
+            setActive(false);
             numbers.pop();
             history.pop();
         }
@@ -243,8 +256,10 @@ function GamePage(){
             <p id = "date"> {todaysdate}</p>
             </div>
             <div id = "right-side">
-                <p id = "username">guest</p>
+    
                 <img id = "profile" src = {user}></img>
+                <p id = "username">guest</p>
+    
             </div>
         </div>
         <div id="target-container">
@@ -269,7 +284,7 @@ function GamePage(){
                 <button className = {opIndex == idx ? "operations active" : "operations"} id = {String(idx)} key = {String(idx)} onClick = {handleOpClick} > {element}
                 </button>)}
             </div>
-            <button className = {active? "submit active": "submit"} > submit</button>
+            <button className = {active? "submit active": "submit"} onClick = {() => active? setOpenPopup(true): setOpenPopup(false)}> {submit}</button>
         </div>
         <div id = "info-container"> 
         <div id = "history-container">
@@ -280,7 +295,7 @@ function GamePage(){
         </div>
         </div>
 
-        
+        {openPopup && active && <Popup setOpenPopup = {setOpenPopup} history = {history} target = {data[index].target} number = {numbers[step][numIndex[0]] as number} setIndex = {setIndex}></Popup>}
         </>
     );
 }

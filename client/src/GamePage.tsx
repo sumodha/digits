@@ -65,9 +65,7 @@ function GamePage(){
         const fetchData = async () => {
             const res = await fetch(`${API}/game`);
             const response = await res.json();
-            console.log(response)
             setData(response.items.data)
-            console.log(response.items.data)
         }
         fetchData();
     }, []);
@@ -230,7 +228,6 @@ function GamePage(){
             }
             else {
                 const num = Number(e.currentTarget.id);
-                console.log(num);
                 setNumIndex(_ => [num]); // else, make this new one active
             }
                 

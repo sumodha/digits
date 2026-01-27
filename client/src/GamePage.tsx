@@ -5,7 +5,7 @@ import Popup from './Popup.js';
 
 localStorage.clear();
 
-const API = import.meta.env.VITE_API as string;
+const API = import.meta.env.VITE_API;
 const operations = ["+", "−", "×", "÷"];
 const todaysdate = getDate();
 

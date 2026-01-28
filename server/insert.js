@@ -12,7 +12,7 @@ const buildYear = () => {
     const days = [31,28,31,30,31,30,31, 31,30,31,30,31];
     const entries = [];
 
-    for (let i = 1; i < 12; i++) {
+    for (let i = 0; i < 12; i++) {
         for (let j = 0; j < days[i]; j++) {
            entries.push(buildEntry(String(i+1)+ "/" + String(j+1)));
         }
@@ -51,11 +51,10 @@ const buildEntry = (str) => {
 }
 
 const makeTarget = (arr) => {
-    const operations = ["+", "-", "*", "/"];
+
     let target = arr[0];
     for (let i = 1; i < 6; i++) {
-        let op = operations[Math.floor(Math.random()*4)];
-        target = solveExpr(target, op, arr[i]);
+        target = solveExpr(target, arr[i]);
     
     }
 
@@ -65,7 +64,7 @@ const makeTarget = (arr) => {
 const buildNums = () => {
     let nums = [];
     for (let i = 0; i < 6; i++) {
-           nums.push(Math.floor(Math.random()*(20-1) + 1)); 
+           nums.push(Math.floor(Math.random()*(25-1) + 1)); 
 
     }
 
@@ -73,22 +72,30 @@ const buildNums = () => {
 
 }
 
-const solveExpr = (num1, op, num2) => {
+const solveExpr = (num1, num2) => {
+    const operations = ["+", "-", "*", "/"];
+    let op = operations[Math.floor(Math.random()*4)];
+
+    let result = 0; 
     switch (op) {
             case "+":
-                return num1 + num2;
+                result =  num1 + num2;
             case "-":
-                return num1 - num2;
+                result =  num1 - num2;
             case "*":
-                return num1 * num2;
+                result =  num1 * num2;
             case "/":
-                const result = num1 / num2;
-                if (!Number.isInteger(result)) {
-                    return num1 + num2;
-                }
-                return result;
+                result = num1 / num2;
+                
     }
+
+    if (!Number.isInteger(result) || result > 900 || result < 1) {
+        return num1 + num2;
+    }
+
+    return result;
 }
 
 const collection = await connectDB();
 insertData();
+console.log("Inserted Data");

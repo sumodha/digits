@@ -292,7 +292,7 @@ function GamePage(){
         </div>
         </div>
 
-        {openPopup && active && <Popup setOpenPopup = {setOpenPopup} history = {history} target = {data[index].target} number = {numbers[step][numIndex[0]] as number} setIndex = {setIndex}></Popup>}
+        {openPopup && active && <Popup setOpenPopup = {setOpenPopup} history = {history} target = {data[index].target} number = {numbers[step][numIndex[0]] as number} setIndex = {setIndex} saveData = {saveData} index = {index} step = {step} numbers = {numbers}></Popup>}
         </>
     );
 }

@@ -63,36 +63,54 @@ const makeTarget = (arr) => {
 
 const buildNums = () => {
     let nums = [];
-    for (let i = 0; i < 6; i++) {
-           nums.push(Math.floor(Math.random()*(25-1) + 1)); 
 
+    while (nums.length < 6) {
+        const num = Math.floor(Math.random() * 25) + 1;
+
+        if (!nums.includes(num)) {
+            nums.push(num);
+        }
     }
 
+    nums.sort((a, b) => a - b);
+    
     return nums;
+};
 
-}
 
 const solveExpr = (num1, num2) => {
     const operations = ["+", "-", "*", "/"];
-    let op = operations[Math.floor(Math.random()*4)];
 
+    for (let attempts = 0; attempts < 100; attempts++) {
+        const op = operations[Math.floor(Math.random() * operations.length)];
+        const result = helper(num1, op, num2);
+
+        if (Number.isInteger(result) && result >= 1 && result <= 900) {
+            return result;
+        }
+    }
+
+    return num1 + num2; 
+};
+
+
+const helper = (num1, op, num2) => {
     let result = 0; 
     switch (op) {
             case "+":
                 result =  num1 + num2;
+                break;
             case "-":
                 result =  num1 - num2;
+                break;
             case "*":
                 result =  num1 * num2;
+                break;
             case "/":
                 result = num1 / num2;
+                break;
                 
     }
-
-    if (!Number.isInteger(result) || result > 900 || result < 1) {
-        return num1 + num2;
-    }
-
     return result;
 }
 

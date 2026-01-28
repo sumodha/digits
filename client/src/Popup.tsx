@@ -1,14 +1,20 @@
 "use client"
 import './Popup.css'
 
+type NumberCell = number | "X";
+
 type popUpProps = {
     setOpenPopup: React.Dispatch<React.SetStateAction<boolean>>,
     history: string[],
     target: number,
     number: number,
-    setIndex: React.Dispatch<React.SetStateAction<number>>
+    setIndex: React.Dispatch<React.SetStateAction<number>>,
+    saveData: (ind: number, step: number, numbers: NumberCell[][], history: string[]) => void,
+    index: number,
+    step: number,
+    numbers: NumberCell[][]
 }
-const Popup = ({setOpenPopup, history, target, number, setIndex} : popUpProps) => {
+const Popup = ({setOpenPopup, history, target, number, setIndex, saveData, index, step, numbers} : popUpProps) => {
 
 
 
@@ -19,6 +25,7 @@ const Popup = ({setOpenPopup, history, target, number, setIndex} : popUpProps) =
     }
 
     const handleNext = () => {
+        saveData(index, step, numbers, history);
         setOpenPopup(false);
         setIndex(prev => prev == 4? 0: prev + 1);
     }

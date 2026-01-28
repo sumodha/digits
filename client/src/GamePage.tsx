@@ -116,11 +116,11 @@ function GamePage(){
             setActive(true);
             setSubmit("submit ☆☆☆");
         }
-        else if (diff <= 3) {
+        else if (diff <= 5) {
             setActive(true);
             setSubmit("submit ☆☆");
         }
-        else if (diff <=6) {
+        else if (diff <=10) {
             setActive(true);
             setSubmit("submit ☆");
         }

@@ -19,12 +19,10 @@ const StartPage = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
-            document.body.style.backgroundColor = "#74659c";
-            document.body.style.display = "flex";
-            document.body.style.justifyContent = "center";
-            document.body.style.alignItems = "center";
-            document.body.style.height = "100vh";
-                }, []);
+  document.body.classList.add("start-page");
+  return () => document.body.classList.remove("start-page");
+}, []);
+
 
     return (
         <>

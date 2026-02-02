@@ -50,14 +50,11 @@ function GamePage(){
     const [openPopup, setOpenPopup] = useState(false);
 
 
-    // USE EFFECT
     useEffect(() => {
-    document.body.style.backgroundColor = "white";
-    document.body.style.display = "flex";
-    document.body.style.justifyContent = "left";
-    document.body.style.alignItems = "left";
-    document.body.style.height = "100vh";
-        }, []);
+  document.body.classList.add("game-page");
+  return () => document.body.classList.remove("game-page");
+}, []);
+
 
 
     // Gets today's game from backend
@@ -249,6 +246,7 @@ function GamePage(){
 
     return (
         <>
+      
         <div id = "header-container">
             <div id = "left-side">
             <h1 id="home-header"> digits </h1>
@@ -295,6 +293,7 @@ function GamePage(){
         </div>
 
         {openPopup && active && <Popup setOpenPopup = {setOpenPopup} history = {history} target = {data[index].target} number = {numbers[step][numIndex[0]] as number} setIndex = {setIndex} saveData = {saveData} index = {index} step = {step} numbers = {numbers}></Popup>}
+   
         </>
     );
 }

@@ -109,6 +109,8 @@ function GamePage(){
     useEffect(() => { 
         
         if (numIndex.length != 1) {
+            setSubmit("submit");
+            setActive(false);
             return;
         }
         const diff = Math.abs(numbers[step][numIndex[0]] as number - data[index].target);
